@@ -48,7 +48,7 @@ function AddProduct() {
       };
 
       await axios.post(
-        "http://localhost:5000/api/products/add",
+        "${import.meta.env.VITE_API_URL}/api/products/add",
         payload
       );
 

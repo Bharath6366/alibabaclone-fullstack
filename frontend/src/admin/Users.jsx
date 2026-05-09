@@ -25,10 +25,10 @@ function Users() {
         ] =
           await Promise.all([
             axios.get(
-              "http://localhost:5000/api/auth/users"
+              "${import.meta.env.VITE_API_URL}/api/auth/users"
             ),
             axios.get(
-              "http://localhost:5000/api/orders/all"
+              "${import.meta.env.VITE_API_URL}/api/orders/all"
             ),
           ]);
 
@@ -83,7 +83,7 @@ function Users() {
 
       try {
         await axios.delete(
-          `http://localhost:5000/api/auth/users/${id}`
+          `${import.meta.env.VITE_API_URL}/api/auth/users/${id}`
         );
 
         fetchUsers();

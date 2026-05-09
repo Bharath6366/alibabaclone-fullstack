@@ -30,7 +30,7 @@ const fetchOrders =
 
       const res =
         await axios.get(
-          `http://localhost:5000/api/orders/user?email=${user.email}`
+          `${import.meta.env.VITE_API_URL}/api/orders/user?email=${user.email}`
         );
 
       setOrders(res.data);

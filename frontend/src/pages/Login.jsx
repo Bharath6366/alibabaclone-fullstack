@@ -24,7 +24,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-  "http://localhost:5000/api/auth/send-otp",
+  "${import.meta.env.VITE_API_URL}/api/auth/send-otp",
   {
     name: form.name,
     email: form.email,
@@ -47,7 +47,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/verify-otp",
+        "${import.meta.env.VITE_API_URL}/api/auth/verify-otp",
         {
           email: form.email,
           otp: form.otp,

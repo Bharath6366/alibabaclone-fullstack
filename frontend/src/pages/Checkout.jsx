@@ -109,7 +109,7 @@ function Checkout() {
 
       try {
         await axios.post(
-          "http://localhost:5000/api/orders/create",
+          "${import.meta.env.VITE_API_URL}/api/orders/create",
           {
             userId:
               user?._id ||
@@ -172,7 +172,7 @@ function Checkout() {
       try {
         const res =
           await axios.post(
-            "http://localhost:5000/api/payment/create-order",
+            "${import.meta.env.VITE_API_URL}/api/payment/create-order",
             {
               amount: total,
             }

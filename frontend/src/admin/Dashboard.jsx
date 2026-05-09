@@ -46,7 +46,7 @@ function Dashboard() {
       try {
         const res =
           await axios.get(
-            "http://localhost:5000/api/analytics"
+            "${import.meta.env.VITE_API_URL}/api/analytics"
           );
 
         setStats(res.data);
