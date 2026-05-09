@@ -1,0 +1,304 @@
+/* PAGE */
+.page-box{
+  width:100%;
+}
+
+.page-title{
+  margin:0 0 25px;
+  font-size:34px;
+  font-weight:800;
+  color:#111827;
+}
+
+/* TABLE */
+.table-wrap{
+  background:white;
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:
+    0 12px 35px rgba(15,23,42,.06);
+}
+
+.admin-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.admin-table thead{
+  background:linear-gradient(
+    135deg,
+    #111827,
+    #1f2937
+  );
+}
+
+.admin-table th{
+  padding:22px 18px;
+  text-align:left;
+  color:white;
+  font-size:14px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.admin-table td{
+  padding:18px;
+  border-bottom:1px solid #eef2f7;
+  color:#111827;
+  font-size:15px;
+  vertical-align:middle;
+}
+
+.admin-table tr:hover{
+  background:#fff7ed;
+  transition:.25s;
+}
+
+/* STATUS */
+.status-select{
+  border:none;
+  outline:none;
+  cursor:pointer;
+  padding:11px 18px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:14px;
+  appearance:none;
+  min-width:180px;
+  color:white;
+}
+
+.status-select.Pending{
+  background:linear-gradient(
+    135deg,
+    #f59e0b,
+    #d97706
+  );
+}
+
+.status-select.Shipped{
+  background:linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+  );
+}
+
+.status-select.OutforDelivery{
+  background:linear-gradient(
+    135deg,
+    #8b5cf6,
+    #7c3aed
+  );
+}
+
+.status-lock-btn{
+  border:none;
+  padding:12px 18px;
+  border-radius:14px;
+  font-weight:700;
+  color:white;
+  background:linear-gradient(
+    135deg,
+    #16a34a,
+    #15803d
+  );
+  box-shadow:
+    0 8px 20px rgba(22,163,74,.25);
+}
+
+/* BUTTON */
+.view-btn{
+  border:none;
+  outline:none;
+  cursor:pointer;
+  padding:11px 18px;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:700;
+  color:white;
+  background:linear-gradient(
+    135deg,
+    #111827,
+    #374151
+  );
+  transition:.25s;
+  box-shadow:
+    0 8px 20px rgba(17,24,39,.18);
+}
+
+.view-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 12px 28px rgba(17,24,39,.28);
+}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+
+.order-modal{
+  width:100%;
+  max-width:900px;
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:28px;
+  padding:32px;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.25);
+}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.modal-top h2{
+  margin:0;
+  font-size:28px;
+  color:#111827;
+}
+
+.close-btn{
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+  background:#f1f5f9;
+  transition:.2s;
+}
+
+.close-btn:hover{
+  background:#fee2e2;
+}
+
+/* META */
+.order-meta{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.order-meta p{
+  margin:0;
+  padding:18px;
+  border-radius:18px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  line-height:1.7;
+  font-size:15px;
+}
+
+.order-meta b{
+  color:#ff6a00;
+}
+
+/* ITEMS */
+.modal-items{
+  margin:20px 0;
+}
+
+.modal-item{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:1px solid #eef2f7;
+}
+
+.modal-order-img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:18px;
+  background:#f8fafc;
+}
+
+.modal-item h4{
+  margin:0 0 8px;
+  color:#111827;
+}
+
+.modal-item p{
+  margin:5px 0;
+  color:#64748b;
+}
+
+/* ADDRESS */
+.address-box{
+  margin-top:20px;
+  padding:22px;
+  border-radius:20px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+}
+
+.address-box p{
+  margin:8px 0;
+  color:#334155;
+  line-height:1.7;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .table-wrap{
+    overflow:auto;
+  }
+
+  .admin-table{
+    min-width:950px;
+  }
+
+  .order-modal{
+    padding:24px;
+  }
+}
+/* DELETE BUTTON */
+.delete-btn{
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(
+    135deg,
+    #ef4444,
+    #dc2626
+  );
+  color:white;
+  font-size:17px;
+  box-shadow:
+    0 8px 20px rgba(239,68,68,.25);
+  transition:.25s;
+}
+
+.delete-btn svg{
+  color:white;
+  fill:white;
+  font-size:17px;
+}
+
+.delete-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 12px 26px rgba(239,68,68,.35);
+}

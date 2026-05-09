@@ -1,0 +1,143 @@
+/* PAGE */
+.page-box{
+  width:100%;
+}
+
+.page-box h1{
+  margin:0 0 25px;
+  font-size:34px;
+  font-weight:800;
+  color:#111827;
+}
+
+/* FORM */
+.product-form{
+  background:white;
+  padding:32px;
+  border-radius:28px;
+  box-shadow:
+    0 12px 35px rgba(15,23,42,.06);
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* INPUTS */
+.product-form input,
+.product-form textarea,
+.product-form select{
+  width:100%;
+  border:1px solid #dbe2ea;
+  outline:none;
+  border-radius:16px;
+  padding:16px 18px;
+  font-size:15px;
+  background:#f8fafc;
+  color:#111827;
+  transition:.25s;
+  box-sizing:border-box;
+}
+
+.product-form textarea{
+  resize:vertical;
+  min-height:120px;
+}
+
+.product-form input::placeholder,
+.product-form textarea::placeholder{
+  color:#94a3b8;
+}
+
+.product-form input:focus,
+.product-form textarea:focus,
+.product-form select:focus{
+  border-color:#ff6a00;
+  background:white;
+  box-shadow:
+    0 0 0 4px rgba(255,106,0,.12);
+}
+
+/* DROPDOWN */
+.product-form select{
+  cursor:pointer;
+  appearance:none;
+  color:#111827;
+  font-weight:500;
+}
+
+/* UPLOAD */
+.upload-box{
+  min-height:140px;
+  border:2px dashed #cbd5e1;
+  border-radius:22px;
+  background:#f8fafc;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  cursor:pointer;
+  color:#64748b;
+  font-size:15px;
+  font-weight:600;
+  transition:.25s;
+}
+
+.upload-box svg{
+  font-size:34px;
+  color:#ff6a00;
+}
+
+.upload-box:hover{
+  border-color:#ff6a00;
+  background:#fff7ed;
+  color:#111827;
+}
+
+/* BUTTON */
+.save-btn{
+  height:58px;
+  border:none;
+  outline:none;
+  cursor:pointer;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:800;
+  color:white;
+  background:linear-gradient(
+    135deg,
+    #ff6a00,
+    #ff9f43
+  );
+  box-shadow:
+    0 14px 30px rgba(255,106,0,.28);
+  transition:.25s;
+}
+
+.save-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 18px 38px rgba(255,106,0,.38);
+}
+
+.save-btn:disabled{
+  opacity:.7;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .product-form{
+    padding:22px;
+    border-radius:22px;
+  }
+
+  .page-box h1{
+    font-size:28px;
+  }
+
+  .upload-box{
+    min-height:120px;
+  }
+}

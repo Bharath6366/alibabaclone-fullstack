@@ -1,0 +1,148 @@
+/* LAYOUT */
+.admin-layout{
+  min-height:100vh;
+  display:flex;
+  background:#f8fafc;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:280px;
+  min-height:100vh;
+  padding:30px 20px;
+  background:linear-gradient(
+    180deg,
+    #0f172a,
+    #111827
+  );
+  color:white;
+  position:sticky;
+  top:0;
+  box-shadow:
+    10px 0 30px rgba(0,0,0,.08);
+}
+
+/* LOGO */
+.sidebar h2{
+  margin:0 0 35px;
+  font-size:28px;
+  font-weight:800;
+  text-align:center;
+  color:white;
+  letter-spacing:-.5px;
+  padding-bottom:20px;
+  border-bottom:
+    1px solid rgba(255,255,255,.12);
+}
+
+/* NAV */
+.sidebar a{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  color:#cbd5e1;
+  padding:15px 18px;
+  margin-bottom:10px;
+  border-radius:16px;
+  font-size:15px;
+  font-weight:600;
+  transition:.25s;
+}
+
+.sidebar a svg{
+  font-size:18px;
+  min-width:18px;
+}
+
+/* HOVER */
+.sidebar a:hover{
+  background:linear-gradient(
+    135deg,
+    #ff6a00,
+    #ff9f43
+  );
+  color:white;
+  transform:translateX(6px);
+  box-shadow:
+    0 10px 25px rgba(255,106,0,.22);
+}
+
+/* LOGOUT */
+.sidebar a:last-child{
+  margin-top:40px;
+  background:rgba(255,255,255,.06);
+}
+
+.sidebar a:last-child:hover{
+  background:linear-gradient(
+    135deg,
+    #ef4444,
+    #dc2626
+  );
+  box-shadow:
+    0 10px 25px rgba(239,68,68,.25);
+}
+
+/* CONTENT */
+.admin-content{
+  flex:1;
+  padding:35px;
+  overflow:auto;
+}
+
+/* SCROLLBAR */
+.admin-content::-webkit-scrollbar{
+  width:8px;
+}
+
+.admin-content::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
+  border-radius:999px;
+}
+
+/* TABLET */
+@media(max-width:1000px){
+  .admin-layout{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    min-height:auto;
+    position:relative;
+    padding:22px;
+  }
+
+  .sidebar h2{
+    margin-bottom:25px;
+  }
+
+  .sidebar a{
+    margin-bottom:8px;
+  }
+
+  .sidebar a:hover{
+    transform:none;
+  }
+
+  .admin-content{
+    padding:22px;
+  }
+}
+
+/* MOBILE */
+@media(max-width:700px){
+  .sidebar h2{
+    font-size:24px;
+  }
+
+  .sidebar a{
+    font-size:14px;
+    padding:13px 15px;
+  }
+
+  .admin-content{
+    padding:18px;
+  }
+}
