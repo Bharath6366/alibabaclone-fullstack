@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 import axios from "axios";
 import {
   FaEdit,
@@ -9,37 +12,50 @@ import {
 import "../styles/products.css";
 
 function Products() {
-  const [items, setItems] = useState([]);
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
-  const [editing, setEditing] = useState(null);
-  const [form, setForm] = useState({});
+  const [items, setItems] =
+    useState([]);
 
-  const fetchItems = async () => {
-    const res = await axios.get(
-      "${import.meta.env.VITE_API_URL}/api/products"
-    );
-    setItems(res.data);
-  };
+  const [search, setSearch] =
+    useState("");
+
+  const [filter, setFilter] =
+    useState("all");
+
+  const [editing, setEditing] =
+    useState(null);
+
+  const [form, setForm] =
+    useState({});
+
+  const fetchItems =
+    async () => {
+      const res =
+        await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/products`
+        );
+
+      setItems(res.data);
+    };
 
   useEffect(() => {
     fetchItems();
   }, []);
 
-  const deleteItem = async (id) => {
-    if (
-      !window.confirm(
-        "Delete permanently?"
+  const deleteItem =
+    async (id) => {
+      if (
+        !window.confirm(
+          "Delete permanently?"
+        )
       )
-    )
-      return;
+        return;
 
-    await axios.delete(
-      `${import.meta.env.VITE_API_URL}/api/products/${id}`
-    );
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/products/${id}`
+      );
 
-    fetchItems();
-  };
+      fetchItems();
+    };
 
   const startEdit = (item) => {
     setEditing(item);
@@ -49,66 +65,87 @@ function Products() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.value,
     });
   };
 
-  const saveEdit = async () => {
-    await axios.put(
-      `${import.meta.env.VITE_API_URL}/api/products/${editing._id}`,
-      form
-    );
+  const saveEdit =
+    async () => {
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/products/${editing._id}`,
+        form
+      );
 
-    setEditing(null);
-    fetchItems();
-  };
+      setEditing(null);
+      fetchItems();
+    };
 
-  const filtered = items.filter((item) => {
-    const title =
-      item.name ||
-      item.bannerTitle ||
-      item.carouselTitle ||
-      "";
+  const filtered =
+    items.filter((item) => {
+      const title =
+        item.name ||
+        item.bannerTitle ||
+        item.carouselTitle ||
+        "";
 
-    const matchSearch = title
-      .toLowerCase()
-      .includes(search.toLowerCase());
+      const matchSearch =
+        title
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          );
 
-    const matchType =
-      filter === "all" ||
-      item.contentType === filter;
+      const matchType =
+        filter === "all" ||
+        item.contentType ===
+          filter;
 
-    return matchSearch && matchType;
-  });
+      return (
+        matchSearch &&
+        matchType
+      );
+    });
 
   return (
     <>
       <div className="page-box">
         <div className="manage-head">
-          <h1>Manage Content</h1>
+          <h1>
+            Manage Content
+          </h1>
 
           <div className="manage-controls">
             <input
               placeholder="Search..."
               value={search}
               onChange={(e) =>
-                setSearch(e.target.value)
+                setSearch(
+                  e.target.value
+                )
               }
             />
 
             <select
               value={filter}
               onChange={(e) =>
-                setFilter(e.target.value)
+                setFilter(
+                  e.target.value
+                )
               }
             >
-              <option value="all">All</option>
+              <option value="all">
+                All
+              </option>
+
               <option value="product">
                 Products
               </option>
+
               <option value="banner">
                 Banner
               </option>
+
               <option value="carousel">
                 Carousel
               </option>
@@ -130,63 +167,82 @@ function Products() {
           </thead>
 
           <tbody>
-            {filtered.map((item) => (
-              <tr key={item._id}>
-                <td>
-                  <img
-                    src={item.images?.[0]}
-                    alt=""
-                    className="product-thumb"
-                  />
-                </td>
-
-                <td>
-                  {item.name ||
-                    item.bannerTitle ||
-                    item.carouselTitle}
-                </td>
-
-                <td>
-                  <span className="type-pill">
-                    {item.contentType}
-                  </span>
-                </td>
-
-                <td>
-                  {item.category || "-"}
-                </td>
-                <td>
-                  {item.price
-                    ? `₹${item.price}`
-                    : "-"}
-                </td>
-                <td>
-                  {item.stock || "-"}
-                </td>
-
-                <td>
-                  <div className="action-btns">
-                    <button
-                      className="icon-btn edit-btn"
-                      onClick={() =>
-                        startEdit(item)
+            {filtered.map(
+              (item) => (
+                <tr
+                  key={
+                    item._id
+                  }
+                >
+                  <td>
+                    <img
+                      src={
+                        item
+                          .images?.[0]
                       }
-                    >
-                      <FaEdit />
-                    </button>
+                      alt=""
+                      className="product-thumb"
+                    />
+                  </td>
 
-                    <button
-                      className="icon-btn delete-btn"
-                      onClick={() =>
-                        deleteItem(item._id)
+                  <td>
+                    {item.name ||
+                      item.bannerTitle ||
+                      item.carouselTitle}
+                  </td>
+
+                  <td>
+                    <span className="type-pill">
+                      {
+                        item.contentType
                       }
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                    </span>
+                  </td>
+
+                  <td>
+                    {item.category ||
+                      "-"}
+                  </td>
+
+                  <td>
+                    {item.price
+                      ? `₹${item.price}`
+                      : "-"}
+                  </td>
+
+                  <td>
+                    {item.stock ||
+                      "-"}
+                  </td>
+
+                  <td>
+                    <div className="action-btns">
+                      <button
+                        className="icon-btn edit-btn"
+                        onClick={() =>
+                          startEdit(
+                            item
+                          )
+                        }
+                      >
+                        <FaEdit />
+                      </button>
+
+                      <button
+                        className="icon-btn delete-btn"
+                        onClick={() =>
+                          deleteItem(
+                            item._id
+                          )
+                        }
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>
@@ -195,12 +251,16 @@ function Products() {
         <div className="modal-overlay">
           <div className="edit-modal">
             <div className="modal-top">
-              <h2>Edit Content</h2>
+              <h2>
+                Edit Content
+              </h2>
 
               <button
                 className="close-btn"
                 onClick={() =>
-                  setEditing(null)
+                  setEditing(
+                    null
+                  )
                 }
               >
                 <FaTimes />
@@ -209,44 +269,68 @@ function Products() {
 
             <input
               name="name"
-              value={form.name || ""}
+              value={
+                form.name || ""
+              }
               placeholder="Name"
-              onChange={handleChange}
+              onChange={
+                handleChange
+              }
             />
 
             <input
               name="category"
-              value={form.category || ""}
+              value={
+                form.category ||
+                ""
+              }
               placeholder="Category"
-              onChange={handleChange}
+              onChange={
+                handleChange
+              }
             />
 
             <input
               name="brand"
-              value={form.brand || ""}
+              value={
+                form.brand || ""
+              }
               placeholder="Brand"
-              onChange={handleChange}
+              onChange={
+                handleChange
+              }
             />
 
             <input
               name="price"
-              value={form.price || ""}
+              value={
+                form.price || ""
+              }
               placeholder="Price"
-              onChange={handleChange}
+              onChange={
+                handleChange
+              }
             />
 
             <input
               name="stock"
-              value={form.stock || ""}
+              value={
+                form.stock || ""
+              }
               placeholder="Stock"
-              onChange={handleChange}
+              onChange={
+                handleChange
+              }
             />
 
             <button
               className="save-edit-btn"
-              onClick={saveEdit}
+              onClick={
+                saveEdit
+              }
             >
-              <FaSave /> Save Changes
+              <FaSave /> Save
+              Changes
             </button>
           </div>
         </div>

@@ -3,83 +3,116 @@ import axios from "axios";
 import "../styles/login.css";
 
 function Login() {
-  const [mode, setMode] = useState("signup");
-  const [step, setStep] = useState(1);
+  const [mode, setMode] =
+    useState("signup");
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    otp: "",
-  });
+  const [step, setStep] =
+    useState(1);
+
+  const [form, setForm] =
+    useState({
+      name: "",
+      email: "",
+      otp: "",
+    });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.value,
     });
   };
 
-  const sendOtp = async (e) => {
-    e.preventDefault();
+  const sendOtp =
+    async (e) => {
+      e.preventDefault();
 
-    try {
-      const res = await axios.post(
-  "${import.meta.env.VITE_API_URL}/api/auth/send-otp",
-  {
-    name: form.name,
-    email: form.email,
-    mode,
-  }
-);
+      try {
+        const res =
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/auth/send-otp`,
+            {
+              name: form.name,
+              email:
+                form.email,
+              mode,
+            }
+          );
 
-      alert(res.data.message);
-      setStep(2);
-    } catch (err) {
-      alert(
-        err.response?.data?.message ||
-          "Failed to send OTP"
-      );
-    }
-  };
+        alert(
+          res.data.message
+        );
 
-  const verifyOtp = async (e) => {
-    e.preventDefault();
+        setStep(2);
+      } catch (err) {
+        alert(
+          err.response?.data
+            ?.message ||
+            "Failed to send OTP"
+        );
+      }
+    };
 
-    try {
-      const res = await axios.post(
-        "${import.meta.env.VITE_API_URL}/api/auth/verify-otp",
-        {
-          email: form.email,
-          otp: form.otp,
-        }
-      );
+  const verifyOtp =
+    async (e) => {
+      e.preventDefault();
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem(
-        "user",
-        JSON.stringify(res.data.user)
-      );
+      try {
+        const res =
+          await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/auth/verify-otp`,
+            {
+              email:
+                form.email,
+              otp: form.otp,
+            }
+          );
 
-      alert("Login successful");
-    } catch (err) {
-      alert(
-        err.response?.data?.message ||
-          "Invalid OTP"
-      );
-    }
-  };
+        localStorage.setItem(
+          "token",
+          res.data.token
+        );
+
+        localStorage.setItem(
+          "user",
+          JSON.stringify(
+            res.data.user
+          )
+        );
+
+        alert(
+          "Login successful"
+        );
+      } catch (err) {
+        alert(
+          err.response?.data
+            ?.message ||
+            "Invalid OTP"
+        );
+      }
+    };
 
   return (
     <div className="login-page">
       <div className="login-box">
-        <h1>Alibaba Clone</h1>
+        <h1>
+          Alibaba Clone
+        </h1>
 
         <div className="tabs">
           <button
             type="button"
-            className={mode === "signup" ? "active" : ""}
+            className={
+              mode ===
+              "signup"
+                ? "active"
+                : ""
+            }
             onClick={() => {
-              setMode("signup");
+              setMode(
+                "signup"
+              );
               setStep(1);
             }}
           >
@@ -88,9 +121,16 @@ function Login() {
 
           <button
             type="button"
-            className={mode === "login" ? "active" : ""}
+            className={
+              mode ===
+              "login"
+                ? "active"
+                : ""
+            }
             onClick={() => {
-              setMode("login");
+              setMode(
+                "login"
+              );
               setStep(1);
             }}
           >
@@ -99,14 +139,23 @@ function Login() {
         </div>
 
         {step === 1 ? (
-          <form onSubmit={sendOtp}>
-            {mode === "signup" && (
+          <form
+            onSubmit={
+              sendOtp
+            }
+          >
+            {mode ===
+              "signup" && (
               <input
                 type="text"
                 name="name"
                 placeholder="Full Name"
-                value={form.name}
-                onChange={handleChange}
+                value={
+                  form.name
+                }
+                onChange={
+                  handleChange
+                }
                 required
               />
             )}
@@ -115,8 +164,12 @@ function Login() {
               type="email"
               name="email"
               placeholder="Email Address"
-              value={form.email}
-              onChange={handleChange}
+              value={
+                form.email
+              }
+              onChange={
+                handleChange
+              }
               required
             />
 
@@ -125,13 +178,21 @@ function Login() {
             </button>
           </form>
         ) : (
-          <form onSubmit={verifyOtp}>
+          <form
+            onSubmit={
+              verifyOtp
+            }
+          >
             <input
               type="text"
               name="otp"
               placeholder="Enter OTP"
-              value={form.otp}
-              onChange={handleChange}
+              value={
+                form.otp
+              }
+              onChange={
+                handleChange
+              }
               required
             />
 
@@ -141,19 +202,29 @@ function Login() {
           </form>
         )}
 
-        <div className="divider">OR</div>
+        <div className="divider">
+          OR
+        </div>
 
-<button type="button" className="social google">
-  <span className="icon">G</span>
-  Continue with Google
-</button>
+        <button
+          type="button"
+          className="social google"
+        >
+          <span className="icon">
+            G
+          </span>
+          Continue with Google
+        </button>
 
-<button type="button" className="social facebook">
-  <span className="icon">f</span>
-  Continue with Facebook
-</button>
-
-        
+        <button
+          type="button"
+          className="social facebook"
+        >
+          <span className="icon">
+            f
+          </span>
+          Continue with Facebook
+        </button>
       </div>
     </div>
   );

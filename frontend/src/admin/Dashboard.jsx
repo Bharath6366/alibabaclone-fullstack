@@ -46,7 +46,7 @@ function Dashboard() {
       try {
         const res =
           await axios.get(
-            "${import.meta.env.VITE_API_URL}/api/analytics"
+            `${import.meta.env.VITE_API_URL}/api/analytics`
           );
 
         setStats(res.data);
@@ -57,11 +57,10 @@ function Dashboard() {
 
   return (
     <div className="dashboard-page">
-      {/* HERO */}
       <div className="welcome-box">
         <h1>
           Welcome back,
-          Admin 
+          Admin
         </h1>
 
         <p>
@@ -71,15 +70,12 @@ function Dashboard() {
         </p>
       </div>
 
-      {/* MAIN STATS */}
       <div className="top-cards">
         <div className="stat-card revenue-card">
           <FaRupeeSign />
-
           <h3>
             Total Revenue
           </h3>
-
           <p>
             ₹
             {stats.revenue.toLocaleString()}
@@ -88,11 +84,9 @@ function Dashboard() {
 
         <div className="stat-card">
           <FaShoppingCart />
-
           <h3>
             Total Orders
           </h3>
-
           <p>
             {stats.orders}
           </p>
@@ -100,11 +94,9 @@ function Dashboard() {
 
         <div className="stat-card">
           <FaBoxOpen />
-
           <h3>
             Delivered
           </h3>
-
           <p>
             {
               stats.delivered
@@ -114,12 +106,10 @@ function Dashboard() {
 
         <div className="stat-card">
           <FaUsers />
-
           <h3>
             Pending /
             Active
           </h3>
-
           <p>
             {stats.orders -
               stats.delivered}
@@ -127,13 +117,11 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* SECONDARY */}
       <div className="small-cards">
         <div className="mini-stat">
           <h4>
             Products
           </h4>
-
           <p>
             {
               stats.products
@@ -142,10 +130,7 @@ function Dashboard() {
         </div>
 
         <div className="mini-stat">
-          <h4>
-            Users
-          </h4>
-
+          <h4>Users</h4>
           <p>
             {stats.users}
           </p>
@@ -155,7 +140,6 @@ function Dashboard() {
           <h4>
             Low Stock
           </h4>
-
           <p>
             {
               stats.lowStock
@@ -165,9 +149,7 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* CHARTS */}
       <div className="analytics-grid">
-        {/* SALES */}
         <div className="chart-box">
           <div className="chart-head">
             <div>
@@ -175,7 +157,6 @@ function Dashboard() {
                 Revenue
                 Analytics
               </p>
-
               <h2>
                 Monthly
                 Sales Trend
@@ -205,22 +186,11 @@ function Dashboard() {
                 dataKey="month"
                 axisLine={false}
                 tickLine={false}
-                tick={{
-                  fill:
-                    "#64748b",
-                  fontSize: 13,
-                  fontWeight: 600,
-                }}
               />
 
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{
-                  fill:
-                    "#64748b",
-                  fontSize: 13,
-                }}
               />
 
               <Tooltip
@@ -229,14 +199,6 @@ function Dashboard() {
                 ) =>
                   `₹${value}`
                 }
-                contentStyle={{
-                  border:
-                    "none",
-                  borderRadius:
-                    "18px",
-                  boxShadow:
-                    "0 18px 40px rgba(0,0,0,.12)",
-                }}
               />
 
               <Line
@@ -246,23 +208,15 @@ function Dashboard() {
                 strokeWidth={3}
                 dot={{
                   r: 5,
-                  fill:
-                    "#2563eb",
-                  stroke:
-                    "#fff",
-                  strokeWidth: 3,
                 }}
                 activeDot={{
                   r: 8,
-                  fill:
-                    "#ff6a00",
                 }}
               />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
-        {/* STATUS */}
         <div className="chart-box">
           <div className="chart-head">
             <div>
@@ -270,10 +224,8 @@ function Dashboard() {
                 Order
                 Insights
               </p>
-
               <h2>
-                Order
-                Status
+                Order Status
               </h2>
             </div>
 
@@ -299,38 +251,9 @@ function Dashboard() {
                 stroke="#eef2f7"
               />
 
-              <XAxis
-                dataKey="_id"
-                axisLine={false}
-                tickLine={false}
-                tick={{
-                  fill:
-                    "#64748b",
-                  fontSize: 13,
-                  fontWeight: 600,
-                }}
-              />
-
-              <YAxis
-                axisLine={false}
-                tickLine={false}
-                tick={{
-                  fill:
-                    "#64748b",
-                  fontSize: 13,
-                }}
-              />
-
-              <Tooltip
-                contentStyle={{
-                  border:
-                    "none",
-                  borderRadius:
-                    "18px",
-                  boxShadow:
-                    "0 18px 40px rgba(0,0,0,.12)",
-                }}
-              />
+              <XAxis dataKey="_id" />
+              <YAxis />
+              <Tooltip />
 
               <Bar
                 dataKey="count"
@@ -348,7 +271,6 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* LOW STOCK */}
       <div className="low-stock-box">
         <h2>
           Low Stock

@@ -20,7 +20,7 @@ function ManageOrders() {
     async () => {
       const res =
         await axios.get(
-          "${import.meta.env.VITE_API_URL}/api/orders/all"
+          `${import.meta.env.VITE_API_URL}/api/orders/all`
         );
 
       setOrders(res.data);
@@ -94,15 +94,8 @@ function ManageOrders() {
 
               return (
                 <tr key={o._id}>
-                  <td>
-                    {o.orderId}
-                  </td>
-
-                  <td>
-                    {
-                      o.customerId
-                    }
-                  </td>
+                  <td>{o.orderId}</td>
+                  <td>{o.customerId}</td>
 
                   <td>
                     {
@@ -166,9 +159,7 @@ function ManageOrders() {
                         </option>
                       </select>
                     ) : (
-                      <button
-                        className="status-lock-btn"
-                      >
+                      <button className="status-lock-btn">
                         Delivered ✓
                       </button>
                     )}

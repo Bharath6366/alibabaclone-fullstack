@@ -40,7 +40,6 @@ function Checkout() {
   ] = useState("COD");
 
   useEffect(() => {
-    /* BUY NOW */
     if (directBuy) {
       setCart([
         directBuy,
@@ -56,7 +55,6 @@ function Checkout() {
       setCart(savedCart);
     }
 
-    /* ADDRESS */
     const savedAddresses =
       JSON.parse(
         localStorage.getItem(
@@ -109,20 +107,17 @@ function Checkout() {
 
       try {
         await axios.post(
-          "${import.meta.env.VITE_API_URL}/api/orders/create",
+          `${import.meta.env.VITE_API_URL}/api/orders/create`,
           {
             userId:
               user?._id ||
               null,
-
             customerName:
               user?.name ||
               "Customer",
-
             email:
               user?.email ||
               null,
-
             items: cart,
             address,
             total,
@@ -130,7 +125,6 @@ function Checkout() {
           }
         );
 
-        /* clear cart only for normal cart checkout */
         if (!directBuy) {
           localStorage.removeItem(
             "cart"
@@ -172,7 +166,7 @@ function Checkout() {
       try {
         const res =
           await axios.post(
-            "${import.meta.env.VITE_API_URL}/api/payment/create-order",
+            `${import.meta.env.VITE_API_URL}/api/payment/create-order`,
             {
               amount: total,
             }

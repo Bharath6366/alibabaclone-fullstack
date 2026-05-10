@@ -15,7 +15,8 @@ import {
 import "../styles/home.css";
 
 function OrderDetails() {
-  const { id } = useParams();
+  const { id } =
+    useParams();
 
   const [order, setOrder] =
     useState(null);
@@ -28,7 +29,7 @@ function OrderDetails() {
     async () => {
       const res =
         await axios.get(
-          "${import.meta.env.VITE_API_URL}/api/orders/all"
+          `${import.meta.env.VITE_API_URL}/api/orders/all`
         );
 
       const found =
@@ -55,7 +56,9 @@ function OrderDetails() {
       <Navbar />
 
       <div className="order-details-page">
-        <h1>Order Details</h1>
+        <h1>
+          Order Details
+        </h1>
 
         <div className="order-detail-box">
           <img
@@ -89,7 +92,9 @@ function OrderDetails() {
             <span
               className={`status ${order.status}`}
             >
-              {order.status}
+              {
+                order.status
+              }
             </span>
           </div>
         </div>
@@ -135,13 +140,19 @@ function OrderDetails() {
             Shipping Address
           </h2>
 
-          <p>{address?.name}</p>
+          <p>
+            {address?.name}
+          </p>
+
           <p>
             {address?.house},{" "}
             {address?.area},{" "}
             {address?.city}
           </p>
-          <p>{address?.phone}</p>
+
+          <p>
+            {address?.phone}
+          </p>
         </div>
       </div>
 

@@ -25,10 +25,10 @@ function Users() {
         ] =
           await Promise.all([
             axios.get(
-              "${import.meta.env.VITE_API_URL}/api/auth/users"
+              `${import.meta.env.VITE_API_URL}/api/auth/users`
             ),
             axios.get(
-              "${import.meta.env.VITE_API_URL}/api/orders/all"
+              `${import.meta.env.VITE_API_URL}/api/orders/all`
             ),
           ]);
 

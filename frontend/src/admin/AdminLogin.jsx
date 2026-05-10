@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/adminlogin.css";
 
 function AdminLogin() {
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
   const [form, setForm] =
     useState({
@@ -32,7 +33,7 @@ function AdminLogin() {
       try {
         const res =
           await axios.post(
-            "${import.meta.env.VITE_API_URL}/api/admin/login",
+            `${import.meta.env.VITE_API_URL}/api/admin/login`,
             form
           );
 
@@ -68,11 +69,13 @@ function AdminLogin() {
             <FaUserShield />
           </div>
 
-          <h1>Admin Login</h1>
+          <h1>
+            Admin Login
+          </h1>
 
           <p>
-            Welcome back to Alibaba
-            Dashboard
+            Welcome back to
+            Alibaba Dashboard
           </p>
         </div>
 
@@ -122,9 +125,7 @@ function AdminLogin() {
             </div>
           </div>
 
-          <button
-            className="admin-login-btn"
-          >
+          <button className="admin-login-btn">
             Login
           </button>
         </form>
