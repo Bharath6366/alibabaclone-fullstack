@@ -1,8 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 function Login() {
+  const navigate =
+    useNavigate();
+
   const [mode, setMode] =
     useState("signup");
 
@@ -84,6 +88,8 @@ function Login() {
         alert(
           "Login successful"
         );
+
+        navigate("/"); // redirect home
       } catch (err) {
         alert(
           err.response?.data

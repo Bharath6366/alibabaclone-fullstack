@@ -14,47 +14,58 @@ import "../styles/products.css";
 function Products() {
   const [items, setItems] =
     useState([]);
-
   const [search, setSearch] =
     useState("");
-
   const [filter, setFilter] =
     useState("all");
-
   const [editing, setEditing] =
     useState(null);
-
   const [form, setForm] =
     useState({});
-
-  const fetchItems =
-    async () => {
-      const res =
-        await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/products`
-        );
-
-      setItems(res.data);
-    };
 
   useEffect(() => {
     fetchItems();
   }, []);
 
+  const fetchItems =
+    async () => {
+      try {
+        const res =
+          await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/products`
+          );
+
+        setItems(
+          Array.isArray(
+            res.data
+          )
+            ? res.data
+            : []
+        );
+      } catch (err) {
+        console.log(err);
+        setItems([]);
+      }
+    };
+
   const deleteItem =
     async (id) => {
-      if (
-        !window.confirm(
+      const ok =
+        window.confirm(
           "Delete permanently?"
-        )
-      )
-        return;
+        );
 
-      await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/products/${id}`
-      );
+      if (!ok) return;
 
-      fetchItems();
+      try {
+        await axios.delete(
+          `${import.meta.env.VITE_API_URL}/api/products/${id}`
+        );
+
+        fetchItems();
+      } catch (err) {
+        console.log(err);
+      }
     };
 
   const startEdit = (item) => {
@@ -72,13 +83,17 @@ function Products() {
 
   const saveEdit =
     async () => {
-      await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/products/${editing._id}`,
-        form
-      );
+      try {
+        await axios.put(
+          `${import.meta.env.VITE_API_URL}/api/products/${editing._id}`,
+          form
+        );
 
-      setEditing(null);
-      fetchItems();
+        setEditing(null);
+        fetchItems();
+      } catch (err) {
+        console.log(err);
+      }
     };
 
   const filtered =
@@ -106,6 +121,182 @@ function Products() {
         matchType
       );
     });
+
+  const products =
+    filtered.filter(
+      (i) =>
+        i.contentType ===
+        "product"
+    );
+
+  const banners =
+    filtered.filter(
+      (i) =>
+        i.contentType ===
+        "banner"
+    );
+
+  const carousels =
+    filtered.filter(
+      (i) =>
+        i.contentType ===
+        "carousel"
+    );
+
+  const renderSimpleTable = (
+    data
+  ) => (
+    <table className="admin-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {data.map((item) => (
+          <tr key={item._id}>
+            <td>
+              <img
+                src={
+                  item
+                    .images?.[0]
+                }
+                alt=""
+                className="product-thumb"
+              />
+            </td>
+
+            <td>
+              {item.bannerTitle ||
+                item.carouselTitle}
+            </td>
+
+            <td>
+              <span className="type-pill">
+                {
+                  item.contentType
+                }
+              </span>
+            </td>
+
+            <td>
+              <div className="action-btns">
+                <button
+                  className="icon-btn edit-btn"
+                  onClick={() =>
+                    startEdit(
+                      item
+                    )
+                  }
+                >
+                  <FaEdit />
+                </button>
+
+                <button
+                  className="icon-btn delete-btn"
+                  onClick={() =>
+                    deleteItem(
+                      item._id
+                    )
+                  }
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+
+  const renderProductTable = (
+    data
+  ) => (
+    <table className="admin-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Brand</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {data.map((item) => (
+          <tr key={item._id}>
+            <td>
+              <img
+                src={
+                  item
+                    .images?.[0]
+                }
+                alt=""
+                className="product-thumb"
+              />
+            </td>
+
+            <td>
+              {item.name}
+            </td>
+
+            <td>
+              {
+                item.category
+              }
+            </td>
+
+            <td>
+              {item.brand}
+            </td>
+
+            <td>
+              ₹
+              {item.price}
+            </td>
+
+            <td>
+              {item.stock}
+            </td>
+
+            <td>
+              <div className="action-btns">
+                <button
+                  className="icon-btn edit-btn"
+                  onClick={() =>
+                    startEdit(
+                      item
+                    )
+                  }
+                >
+                  <FaEdit />
+                </button>
+
+                <button
+                  className="icon-btn delete-btn"
+                  onClick={() =>
+                    deleteItem(
+                      item._id
+                    )
+                  }
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 
   return (
     <>
@@ -137,15 +328,12 @@ function Products() {
               <option value="all">
                 All
               </option>
-
               <option value="product">
                 Products
               </option>
-
               <option value="banner">
                 Banner
               </option>
-
               <option value="carousel">
                 Carousel
               </option>
@@ -153,98 +341,50 @@ function Products() {
           </div>
         </div>
 
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Type</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Stock</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+        {(filter === "all" ||
+          filter ===
+            "product") &&
+          products.length >
+            0 && (
+            <>
+              <h2 className="section-title">
+                Products
+              </h2>
+              {renderProductTable(
+                products
+              )}
+            </>
+          )}
 
-          <tbody>
-            {filtered.map(
-              (item) => (
-                <tr
-                  key={
-                    item._id
-                  }
-                >
-                  <td>
-                    <img
-                      src={
-                        item
-                          .images?.[0]
-                      }
-                      alt=""
-                      className="product-thumb"
-                    />
-                  </td>
+        {(filter === "all" ||
+          filter ===
+            "banner") &&
+          banners.length >
+            0 && (
+            <>
+              <h2 className="section-title">
+                Banners
+              </h2>
+              {renderSimpleTable(
+                banners
+              )}
+            </>
+          )}
 
-                  <td>
-                    {item.name ||
-                      item.bannerTitle ||
-                      item.carouselTitle}
-                  </td>
-
-                  <td>
-                    <span className="type-pill">
-                      {
-                        item.contentType
-                      }
-                    </span>
-                  </td>
-
-                  <td>
-                    {item.category ||
-                      "-"}
-                  </td>
-
-                  <td>
-                    {item.price
-                      ? `₹${item.price}`
-                      : "-"}
-                  </td>
-
-                  <td>
-                    {item.stock ||
-                      "-"}
-                  </td>
-
-                  <td>
-                    <div className="action-btns">
-                      <button
-                        className="icon-btn edit-btn"
-                        onClick={() =>
-                          startEdit(
-                            item
-                          )
-                        }
-                      >
-                        <FaEdit />
-                      </button>
-
-                      <button
-                        className="icon-btn delete-btn"
-                        onClick={() =>
-                          deleteItem(
-                            item._id
-                          )
-                        }
-                      >
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              )
-            )}
-          </tbody>
-        </table>
+        {(filter === "all" ||
+          filter ===
+            "carousel") &&
+          carousels.length >
+            0 && (
+            <>
+              <h2 className="section-title">
+                Carousels
+              </h2>
+              {renderSimpleTable(
+                carousels
+              )}
+            </>
+          )}
       </div>
 
       {editing && (
@@ -329,8 +469,8 @@ function Products() {
                 saveEdit
               }
             >
-              <FaSave /> Save
-              Changes
+              <FaSave />
+              Save Changes
             </button>
           </div>
         </div>

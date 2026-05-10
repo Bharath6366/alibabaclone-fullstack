@@ -49,7 +49,26 @@ function Dashboard() {
             `${import.meta.env.VITE_API_URL}/api/analytics`
           );
 
-        setStats(res.data);
+        setStats({
+          products:
+            res.data.products || 0,
+          users:
+            res.data.users || 0,
+          orders:
+            res.data.orders || 0,
+          revenue:
+            res.data.revenue || 0,
+          delivered:
+            res.data.delivered || 0,
+          lowStock:
+            res.data.lowStock || [],
+          monthlySales:
+            res.data.monthlySales ||
+            [],
+          statusStats:
+            res.data.statusStats ||
+            [],
+        });
       } catch (err) {
         console.log(err);
       }
@@ -62,7 +81,6 @@ function Dashboard() {
           Welcome back,
           Admin
         </h1>
-
         <p>
           Here's your complete
           store overview with
@@ -78,7 +96,9 @@ function Dashboard() {
           </h3>
           <p>
             ₹
-            {stats.revenue.toLocaleString()}
+            {Number(
+              stats.revenue || 0
+            ).toLocaleString()}
           </p>
         </div>
 
@@ -142,8 +162,10 @@ function Dashboard() {
           </h4>
           <p>
             {
-              stats.lowStock
-                .length
+              (
+                stats.lowStock ||
+                []
+              ).length
             }
           </p>
         </div>
@@ -174,7 +196,8 @@ function Dashboard() {
           >
             <LineChart
               data={
-                stats.monthlySales
+                stats.monthlySales ||
+                []
               }
             >
               <CartesianGrid
@@ -240,7 +263,8 @@ function Dashboard() {
           >
             <BarChart
               data={
-                stats.statusStats
+                stats.statusStats ||
+                []
               }
               barCategoryGap={
                 80
@@ -277,38 +301,33 @@ function Dashboard() {
           Products
         </h2>
 
-        {stats.lowStock
+        {(stats.lowStock || [])
           .length === 0 ? (
           <p>
             No low stock
             products
           </p>
         ) : (
-          stats.lowStock.map(
-            (
-              item
-            ) => (
-              <div
-                key={
-                  item._id
-                }
-                className="low-item"
-              >
-                <span>
-                  {
-                    item.name
-                  }
-                </span>
+          (
+            stats.lowStock ||
+            []
+          ).map((item) => (
+            <div
+              key={item._id}
+              className="low-item"
+            >
+              <span>
+                {item.name}
+              </span>
 
-                <b>
-                  {
-                    item.stock
-                  }{" "}
-                  left
-                </b>
-              </div>
-            )
-          )
+              <b>
+                {
+                  item.stock
+                }{" "}
+                left
+              </b>
+            </div>
+          ))
         )}
       </div>
     </div>
